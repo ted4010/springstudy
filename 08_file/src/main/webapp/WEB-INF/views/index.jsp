@@ -16,10 +16,10 @@
           method="post"
           enctype="multipart/form-data">
       <div>
-        <input type="file" name="input-files" class="files" accept="image/*" multiple>
+        <input type="file" name="files" class="files" accept="image/*" multiple>
       </div>
       <div>
-        <input type="text" name="input-writer" placeholder="작성자">
+        <input type="text" name="writer" placeholder="작성자">
       </div>
       <div>
         <button type="submit">전송</button>
@@ -35,10 +35,10 @@
   <div>
   
     <div>
-      <input type="file" id="files" class="files" multiple>
+      <input type="file" id="input-files" class="files" multiple>
     </div>
     <div>
-      <input type="text" id="writer" placeholder="작성자">
+      <input type="text" id="input-writer" placeholder="작성자">
     </div>
     <div>
       <button type="button" id="btn-upload">전송</button>
@@ -87,29 +87,54 @@
     }
     
     const fnAsyncUpload = ()=>{
-    	const inputFiles = document.getElementById('input-files');
-    	const inputWriter = document.getElementById('input-writer');
-    	let formData = new FormDate();
-    	for(let i = 0; i < inputFiles.files.length; i++){
-    		formData.append('files', inputFiles.files[i]);
-    	}
-    	fromData.append('writer', inputWriter);
-    	fetch('${contextPath}/upload2.do', {
-    	  method: 'POST',
-    	  body: formData})
-    	 .then(response=>response.json())
-    	 .then(resData=>{ /* resData = {"success" : 1} 또는 {"success" : 0}) */
-    		  if(resData.success === 1){
-    			  alert('저장되었습니다.');
-    		  } else {
-    			  alert('저장실패했습니다.');
-    		  }
-    	 })
+      const inputFiles = document.getElementById('input-files');
+      const inputWriter = document.getElementById('input-writer');
+      let formData = new FormData();
+      for(let i = 0; i < inputFiles.files.length; i++){
+        formData.append('files', inputFiles.files[i]);
+      }
+      formData.append('writer', inputWriter);
+      fetch('${contextPath}/upload2.do', {
+        method: 'POST',
+        body: formData
+      }).then(response=>response.json())
+        .then(resData=>{  /* resData = {"success": 1} 또는 {"success": 0} */
+          if(resData.success === 1){
+            alert('저장되었습니다.');
+          } else {
+            alert('저장실패했습니다.');
+          }
+        })
+    }
+    
+    const fnAsyncUpload2 = ()=>{
+      const inputFiles = document.getElementById('input-files');
+      const inputWriter = document.getElementById('input-writer');
+      let formData = new FormData();
+      for(let i = 0; i < inputFiles.files.length; i++){
+        formData.append('files', inputFiles.files[i]);
+      }
+      formData.append('writer', inputWriter);
+      $.ajax({
+        type: 'POST',
+        url: '${contextPath}/upload2.do',
+        contentType: false,  // content-type header를 생성하지 않도록 설정
+        data: formData,      // FormData 객체를 서버로 전달
+        processData: false,  // 전달되는 데이터가 객체인 경우 객체를 {property: value} 형식의 문자열로 자동으로 변환해서 전달하는데 이를 방지하는 옵션
+        dataType: 'json'
+      }).done(resData=>{
+        if(resData.success === 1){
+          alert('저장되었습니다.');
+        } else {
+          alert('저장실패했습니다.');
+        }
+      })
     }
     
     fnFileCheck();
     fnAfterInsertCheck();
-    document.getElemenById('btn-upload').addEventListener('click', fnAsyncUpload);
+    document.getElementById('btn-upload').addEventListener('click', fnAsyncUpload2);
+  
   </script>
   
 </body>
