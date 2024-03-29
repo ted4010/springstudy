@@ -28,39 +28,47 @@ public class MemberDaoImpl implements MemberDao {
   }
   
   @Override
-  public int updateMember(MemberDto member) {
-    // TODO Auto-generated method stub
-    return 0;
+  public int updateMember(Map<String, Object> map) {
+    return sqlSessionTemplate.update(NS + "updateMember", map);
+  }
+  
+  @Override
+  public int updateAddress(Map<String, Object> map) {
+    return sqlSessionTemplate.update(NS + "updateAddress", map);
   }
 
   @Override
   public int deleteMember(int memberNo) {
-    // TODO Auto-generated method stub
-    return 0;
+    return sqlSessionTemplate.delete(NS + "deleteMember", memberNo);
   }
 
   @Override
   public int deleteMembers(List<String> memberNoList) {
-    // TODO Auto-generated method stub
-    return 0;
+    return sqlSessionTemplate.delete(NS + "deleteMembers", memberNoList);
   }
 
   @Override
   public int getTotalMemberCount() {
-    // TODO Auto-generated method stub
-    return 0;
+    return sqlSessionTemplate.selectOne(NS + "getTotalMemberCount");
   }
 
   @Override
-  public List<MemberDto> getMemberList(Map<String, Object> map) {
-    // TODO Auto-generated method stub
-    return null;
+  public List<AddressDto> getMemberList(Map<String, Object> map) {
+    return sqlSessionTemplate.selectList(NS + "getMemberList", map);
   }
 
   @Override
   public MemberDto getMemberByNo(int memberNo) {
-    // TODO Auto-generated method stub
-    return null;
+    return sqlSessionTemplate.selectOne(NS + "getMemberByNo", memberNo);
   }
 
+  @Override
+  public int getTotalAddressCountByNo(int memberNo) {
+    return sqlSessionTemplate.selectOne(NS + "getTotalAddressCountByNo", memberNo);
+  }
+  
+  @Override
+  public List<AddressDto> getAddressListByNo(Map<String, Object> map) {
+    return sqlSessionTemplate.selectList(NS + "getAddressListByNo", map);
+  }
 }
