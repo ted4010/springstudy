@@ -14,6 +14,4 @@ import lombok.NoArgsConstructor;
 public class BlogDto {
   private int blogNo;
   private String title;
-  
-  
 }

@@ -26,7 +26,7 @@ public class MyController3 {
    *  1) 변수를 선언하고 요청 파라미터를 받는다.
    *  2) @RequestParam annotation 은 생략할 수 있다.
    *  3) 주요 메소드
-   *    (1) value         : 요청 파라미터 이름
+   *    (1) value        : 요청 파라미터 이름
    *    (2) required     : 요청 파라미터 필수 여부(디폴트 true)
    *    (3) defaultValue : 요청 파라미터가 있을 떄 사용할 값 
    */

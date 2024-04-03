@@ -1,4 +1,4 @@
-package com.gdu.myapp.logbok;
+package com.gdu.myapp.logback;
 
 import java.text.SimpleDateFormat;
 
