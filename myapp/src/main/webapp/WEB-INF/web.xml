@@ -31,6 +31,10 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <!-- MyHttpSessionListener -->
+  <listener>
+    <listener-class>com.gdu.myapp.listener.MyHttpSessionListener</listener-class>
+  </listener>
 
   <!-- Processes application requests -->
   <!-- view - DispatcherServlet - Controller  -->

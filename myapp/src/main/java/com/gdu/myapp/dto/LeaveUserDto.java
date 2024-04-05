@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class LeaveUserDto {
   private int leaveUserNo;
   private String email;
-  private Date leaveDto;
+  private Date leaveDt;
 }

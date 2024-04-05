@@ -14,6 +14,7 @@
 
   <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
   <resources mapping="/resources/**" location="/resources/" />
+  <resources mapping="/upload/**"    location="file:///upload/" />
 
   <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
   <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,6 +23,27 @@
   </beans:bean>
   
   <context:component-scan base-package="com.gdu.myapp" />
+  
+  <!-- 인터셉터 등록 -->
+  <interceptors>
+    <interceptor>
+      <mapping path="/bbs/write.page" />
+      <mapping path="/blog/write.page" />
+      <beans:bean class="com.gdu.myapp.interceptor.RequiredSigninInterceptor" />
+    </interceptor>
+    
+    <interceptor>
+      <mapping path="/user/signin.page"/>
+      <mapping path="/user/signout.page"/>
+      <beans:bean class="com.gdu.myapp.interceptor.RequiredSignoutlnterceptor"></beans:bean>
+    </interceptor>
+  </interceptors>
+  
+  
+  
+  
+  
+  
   
   
   

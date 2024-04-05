@@ -1,5 +1,7 @@
 package com.gdu.prj02.test.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -47,7 +49,28 @@ public class MyController5 {
   @GetMapping("/fag/modify.do")
   public void modify(HttpServletRequest request, HttpServletResponse response) {
     
-    // 
+    // modify 결과
+    int modifyResult = Math.random() < 0.5 ? 1 : 0;
+    
+    // 응답 만들기
+    // response.setContentType("text/html;charset=utf-8");  text/html;charset=utf-8 이거는 문장코드 해석
+    // ->서블릿에서 직접 브라우저에 출력해줄 경우 쓴다
+    response.setContentType("text/html; charset=UTF-8");
+    try {
+     PrintWriter out = response.getWriter();
+     out.println("<script>");
+     if(modifyResult == 1) {
+       out.println("alert('수정되었습니다.')");
+       // request.getContextPath() = /prj02 
+       out.println("location.href='" + request.getContextPath() + "/faq/list.do'");
+     } else {
+       out.println("alert('실패했습니다.')");
+       out.println("history.back()");       
+     }
+     out.println("</script");       
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
   
 }
