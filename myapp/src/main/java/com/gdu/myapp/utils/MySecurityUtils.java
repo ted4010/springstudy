@@ -35,7 +35,7 @@ public class MySecurityUtils {
    *    "<" 기호와 ">" 기호를 엔티티 코드로 변환한다.
    */
   public static String getPreventXss(String original) {
-    return original.replace("<", "&lt;").replace(">", "&gt;");
+    return original.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
   }
   
   /*

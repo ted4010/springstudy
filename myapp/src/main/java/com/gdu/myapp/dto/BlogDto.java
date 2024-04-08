@@ -1,6 +1,5 @@
 package com.gdu.myapp.dto;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class BlogDto {
   private int blogNo, hit;
   private String title, contents;
-  private Timestamp creatDt, modifyDt;
+  private Timestamp createDt, modifyDt;
   private UserDto user;
 }
