@@ -1,10 +1,8 @@
 package com.gdu.myapp.controller;
 
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gdu.myapp.service.BbsService;
-import com.gdu.myapp.service.BlogService;
 
 import lombok.RequiredArgsConstructor;
 

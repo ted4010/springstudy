@@ -51,7 +51,7 @@ const fnGetBlogList = () => {
     success: (resData) => {  // resData = {"blogList": [], "totalPage": 10}
       totalPage = resData.totalPage;
       $.each(resData.blogList, (i, blog) => {
-        let str = '<div class="blog" data-blog-no="' + blog.blogNo + '">';
+        let str = '<div class="blog" data-user-no="' + blog.user.userNo + '" data-blog-no="' + blog.blogNo + '">';
         str += '<span>' + blog.title + '</span>';
         str += '<span>' + blog.user.email + '</span>';
         str += '<span>' + blog.hit + '</span>';
@@ -76,6 +76,10 @@ const fnScrollHandler = () => {
   
   $(window).on('scroll', (evt) => {
 
+    /*
+      스크롤 이벤트 발생 → setTimeout() 함수 동작 → 목록 가져옴 → setTimeout() 함수 동작 취소
+    */
+    
     if(timerId) {  // timerId 가 undefined 이면 false, 아니면 true 
                    // timerId 가 undefined 이면 setTimeout() 함수가 동작한 적 없음
       clearTimeout(timerId);  // setTimeout() 함수 동작을 취소함 -> 목록을 가져오지 않는다.
@@ -84,9 +88,9 @@ const fnScrollHandler = () => {
     // 500밀리초(0.5초) 후에 () => {}가 동작하는 setTimeout 함수
     timerId = setTimeout(() => {
       
-      let scrollTop = $(window).scrollTop();
-      let windowHeight = $(window).height();
-      let documentHeight = $(document).height();
+      let scrollTop = window.scrollY;  // $(window).scrollTop();
+      let windowHeight = window.innerHeight;  // $(window).height();
+      let documentHeight =  $(document).height();
       
       if( (scrollTop + windowHeight + 50) >= documentHeight ) {  // 스크롤과 바닥 사이 길이가 50px 이하인 경우 
         if(page > totalPage) {
@@ -98,33 +102,29 @@ const fnScrollHandler = () => {
       
     }, 500);
     
-    
-    
-
-    
   })
   
 }
 
 const fnBlogDetail = () => {
-	  
-	  $(document).on('click', '.blog', (evt) => {
-	    
-	    // <div class="blog"> 중 클릭 이벤트가 발생한 <div> : 이벤트 대상
-	    // evt.target.dataset.blogNo === $(evt.target).data('blogNo')
-	    
-	    location.href = '${contextPath}/blog/detail.do?blogNo=' + evt.target.dataset.blogNo;
-	    
-	  })
-	  
-	}
-
-
-
-
-
-
-
+  
+  $(document).on('click', '.blog', (evt) => {
+    
+    // <div class="blog"> 중 클릭 이벤트가 발생한 <div> : 이벤트 대상
+    // evt.target.dataset.blogNo === $(evt.target).data('blogNo')
+    // evt.target.dataset.userNo === $(evt.target).data('userNo')
+    
+    // 내가 작성한 블로그는 /detail.do 요청 (조회수 증가가 없음)
+    // 남이 작성한 블로그는 /updateHit.do 요청 (조회수 증가가 있음)
+    if(Number('${sessionScope.user.userNo}') === evt.target.dataset.userNo) {     
+      location.href = '${contextPath}/blog/detail.do?blogNo=' + evt.target.dataset.blogNo;
+    } else {
+      location.href = '${contextPath}/blog/updateHit.do?blogNo=' + evt.target.dataset.blogNo;     
+    }
+    
+  })
+  
+}
 
 const fnInsertCount = () => {
   let insertCount = '${insertCount}';
@@ -141,7 +141,7 @@ fnGetBlogList();
 fnScrollHandler();
 fnBlogDetail();
 fnInsertCount();
-  
+
 </script>
 
 <%@ include file="../layout/footer.jsp" %>
