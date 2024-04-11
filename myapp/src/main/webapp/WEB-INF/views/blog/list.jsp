@@ -116,10 +116,10 @@ const fnBlogDetail = () => {
     
     // 내가 작성한 블로그는 /detail.do 요청 (조회수 증가가 없음)
     // 남이 작성한 블로그는 /updateHit.do 요청 (조회수 증가가 있음)
-    if(Number('${sessionScope.user.userNo}') === evt.target.dataset.userNo) {     
+    if('${sessionScope.user.userNo}' === evt.target.dataset.userNo) {
       location.href = '${contextPath}/blog/detail.do?blogNo=' + evt.target.dataset.blogNo;
     } else {
-      location.href = '${contextPath}/blog/updateHit.do?blogNo=' + evt.target.dataset.blogNo;     
+      location.href = '${contextPath}/blog/updateHit.do?blogNo=' + evt.target.dataset.blogNo;      
     }
     
   })

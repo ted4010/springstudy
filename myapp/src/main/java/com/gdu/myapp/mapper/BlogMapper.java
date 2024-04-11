@@ -13,10 +13,9 @@ public interface BlogMapper {
   int insertBlog(BlogDto blog);
   int getBlogCount();
   List<BlogDto> getBlogList(Map<String, Object> map);
-  int updateHit (int blogNo);
+  int updateHit(int blogNo);
   BlogDto getBlogByNo(int blogNo);
   int insertComment(CommentDto comment);
-  int removeComment(int commentNo);
   int getCommentCount(int blogNo);
   List<CommentDto> getCommentList(Map<String, Object> map);
   int insertReply(CommentDto comment);

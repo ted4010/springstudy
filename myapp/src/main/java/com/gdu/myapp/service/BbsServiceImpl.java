@@ -94,7 +94,7 @@ public class BbsServiceImpl implements BbsService {
     // 답글 정보 : userNo, contents
     // 원글 정보 : depth, groupNo, groupOrder
     int userNo = Integer.parseInt(request.getParameter("userNo"));
-    String contents = (request.getParameter("contents"));
+    String contents = MySecurityUtils.getPreventXss(request.getParameter("contents"));
     int depth = Integer.parseInt(request.getParameter("depth"));
     int groupNo = Integer.parseInt(request.getParameter("groupNo"));
     int groupOrder = Integer.parseInt(request.getParameter("groupOrder"));
@@ -112,7 +112,6 @@ public class BbsServiceImpl implements BbsService {
     // 답글 BbsDto 객체 생성
     UserDto user = new UserDto();
     user.setUserNo(userNo);
-    
     BbsDto reply = BbsDto.builder()
                         .user(user)
                         .contents(contents)
@@ -121,7 +120,7 @@ public class BbsServiceImpl implements BbsService {
                         .groupOrder(groupOrder + 1)
                       .build();
     
-    // 새 답글의 추가    
+    // 새 답글의 추가
     return bbsMapper.insertReply(reply);
     
   }
@@ -153,24 +152,24 @@ public class BbsServiceImpl implements BbsService {
     Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
     int page = Integer.parseInt(opt.orElse("1"));
     
-    // 페이지 처리에 필요한 처리
+    // 페이징 처리에 필요한 처리
     myPageUtils.setPaging(total, display, page);
     
     // 검색 목록을 가져오기 위해서 기존 Map 에 begin 과 end 를 추가
     map.put("begin", myPageUtils.getBegin());
     map.put("end", myPageUtils.getEnd());
     
-    
     // 검색 목록 가져오기
     List<BbsDto> bbsList = bbsMapper.getSearchList(map);
     
-    // 뷰로 전달한 데이터
+    // 뷰로 전달할 데이터
     model.addAttribute("beginNo", total - (page - 1) * display);
-    model.addAttribute("bbsList", bbsList);    
-    model.addAttribute("paging", myPageUtils.getPaging(request.getContextPath() + "bbs/search.do"
+    model.addAttribute("bbsList", bbsList);
+    model.addAttribute("paging", myPageUtils.getPaging(request.getContextPath() + "/bbs/search.do"
                                                      , ""
-                                                     , 20 
-                                                     , "column=" + column + "&query=" + query));    
+                                                     , 20
+                                                     , "column=" + column + "&query=" + query));
+    
   }
 
 }

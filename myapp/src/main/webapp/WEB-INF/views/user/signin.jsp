@@ -6,11 +6,11 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>"/>
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="Sign in" name="title"/>
+  <jsp:param value="Sign In" name="title"/>
 </jsp:include>
 
-  <h1 class="title">Sign In</h1>
-  
+<h1 class="title">Sign In</h1>
+
 <div>
   <form method="POST"
         action="${contextPath}/user/signin.do">
@@ -20,34 +20,18 @@
     </div>
     <div>
       <label for="pw">비밀번호</label>
-      <input type="text" id="pw" name="pw" placeholder="●●●●">
+      <input type="password" id="pw" name="pw" placeholder="●●●●">
     </div>
-    <div> 
+    <div>
       <input type="hidden" name="url" value="${url}">
       <button type="submit">Sign In</button>
-    </div>  
+    </div>
     <div>
       <a href="${naverLoginURL}">
-        <img src="${contextPath}/resources/2021_Login_with_naver_guidelines_Kr/btnD_아이콘원형.png">
+        <img src="${contextPath}/resources/2021_Login_with_naver_guidelines_Kr/btnG_아이콘원형.png">
       </a>
     </div>
   </form>
-</div>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
   
+<%@ include file="../layout/footer.jsp" %>

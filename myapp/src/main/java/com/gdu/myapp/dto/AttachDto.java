@@ -1,7 +1,5 @@
 package com.gdu.myapp.dto;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CommentDto {
-  private int commentNo, state, depth, groupNo, blogNo;
-  private String contents;
-  private Timestamp createDt;
-  private UserDto user;
+public class AttachDto {
+  private int attachNo, downloadCount, hasThumbnail, uploadNo;
+  private String uploadPath, filesystemName, originalFilename;
 }

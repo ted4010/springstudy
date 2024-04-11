@@ -26,25 +26,20 @@
   
   <!-- 인터셉터 등록 -->
   <interceptors>
+  
     <interceptor>
       <mapping path="/bbs/write.page" />
       <mapping path="/blog/write.page" />
+      <mapping path="/upload/write.page" />
       <beans:bean class="com.gdu.myapp.interceptor.RequiredSigninInterceptor" />
     </interceptor>
     
     <interceptor>
       <mapping path="/user/signin.page"/>
-      <mapping path="/user/signout.page"/>
-      <beans:bean class="com.gdu.myapp.interceptor.RequiredSignoutlnterceptor"></beans:bean>
+      <mapping path="/user/signup.page"/>
+      <beans:bean class="com.gdu.myapp.interceptor.RequiredSignoutInterceptor" />
     </interceptor>
+    
   </interceptors>
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
 </beans:beans>

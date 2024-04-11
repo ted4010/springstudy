@@ -9,5 +9,5 @@ public interface BbsService {
   void loadBbsList(HttpServletRequest request, Model model);
   int registerReply(HttpServletRequest request);
   int removeBbs(int bbsNo);
-  void loadBbsSearchList(HttpServletRequest request, Model model);
+  void loadBbsSearchList(HttpServletRequest request, Model model); 
 }

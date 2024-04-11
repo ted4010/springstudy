@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,31 +65,18 @@ public class BlogController {
   
   @PostMapping(value="/registerComment.do", produces="application/json")
   public ResponseEntity<Map<String, Object>> registerComment(HttpServletRequest request) {
-    
-    return new ResponseEntity<>(Map.of("insertCount", blogService.registerComment(request))
-                              , HttpStatus.OK);
+    return ResponseEntity.ok(Map.of("insertCount", blogService.registerComment(request)));
   }
   
-  @GetMapping("/removeComment.do")
-  public String removeComment(@RequestParam int commentNo, RedirectAttributes redirectAttributes) {
-      redirectAttributes.addFlashAttribute("removeReplyCount", blogService.removeComment(commentNo));
-      return "redirect:/blog/detail.do";
-  }
-  
-  @GetMapping(value="/comment/list.do", produces = "application/json")
+  @GetMapping(value="/comment/list.do", produces="application/json")
   public ResponseEntity<Map<String, Object>> commentList(HttpServletRequest request) {
-   
-    return new ResponseEntity<>(blogService.getCommentList(request)
-                              , HttpStatus.OK);
-    
-   // return ResponseEntity.ok(Map.of("insertCount", blogService.registerComment(request)));
+    return ResponseEntity.ok(blogService.getCommentList(request));
   }
   
   @PostMapping(value="/comment/registerReply.do", produces="application/json")
   public ResponseEntity<Map<String, Object>> registerReply(HttpServletRequest request) {
     return ResponseEntity.ok(Map.of("insertReplyCount", blogService.registerReply(request)));
   }
-  
   
   
   

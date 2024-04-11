@@ -47,7 +47,7 @@
         scope="singleton">
     <constructor-arg ref="sqlSessionFactoryBean"/>
   </bean>
-  
+
   <!-- 트랜잭션 관리자 등록 -->
   <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
         id="dataSourceTransactionManager"

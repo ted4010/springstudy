@@ -1,6 +1,5 @@
 package com.gdu.myapp.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -47,18 +46,14 @@ public class BbsController {
   
   @GetMapping("/removeBbs.do")
   public String removeBbs(@RequestParam int bbsNo, RedirectAttributes redirectAttributes) {
-   redirectAttributes.addFlashAttribute("removeBbsCount", bbsService.removeBbs(bbsNo));
-   return "redirect:/bbs/list.do";
+    redirectAttributes.addFlashAttribute("removeBbsCount", bbsService.removeBbs(bbsNo));
+    return "redirect:/bbs/list.do";
   }
   
   @GetMapping("/search.do")
-  public String Search(HttpServletRequest request, Model model) {
+  public String search(HttpServletRequest request, Model model) {
     bbsService.loadBbsSearchList(request, model);
     return "bbs/list";
   }
-  
-  
-}
-  
-  
 
+}

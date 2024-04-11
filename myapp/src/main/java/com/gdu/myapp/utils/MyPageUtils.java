@@ -33,6 +33,68 @@ public class MyPageUtils {
     endPage = Math.min(totalPage, beginPage + pagePerBlock - 1);
     
   }
+
+  public String getPaging(String requestURI, String sort, int display) {
+    
+    StringBuilder builder = new StringBuilder();
+    
+    // <
+    if(beginPage == 1) {
+      builder.append("<div class=\"dont-click\">&lt;</div>");
+    } else {
+      builder.append("<div><a href=\"" + requestURI + "?page=" + (beginPage - 1) + "&sort=" + sort + "&display=" + display + "\">&lt;</a></div>");
+    }
+    
+    // 1 2 3 4 5 6 7 8 9 10
+    for(int p = beginPage; p <= endPage; p++) {
+      if(p == page) {
+        builder.append("<div><a class=\"current-page\" href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "\">" + p + "</a></div>");
+      } else {
+        builder.append("<div><a href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "\">" + p + "</a></div>");
+      }
+    }
+    
+    // >
+    if(endPage == totalPage) {
+      builder.append("<div class=\"dont-click\">&gt;</div>");
+    } else {
+      builder.append("<div><a href=\"" + requestURI + "?page=" + (endPage + 1) + "&sort=" + sort + "&display=" + display + "\">&gt;</a></div>");
+    }
+    
+    return builder.toString();
+    
+  }
+  
+  public String getPaging(String requestURI, String sort, int display, String params) {
+    
+    StringBuilder builder = new StringBuilder();
+    
+    // <
+    if(beginPage == 1) {
+      builder.append("<div class=\"dont-click\">&lt;</div>");
+    } else {
+      builder.append("<div><a href=\"" + requestURI + "?page=" + (beginPage - 1) + "&sort=" + sort + "&display=" + display + "&" + params + "\">&lt;</a></div>");
+    }
+    
+    // 1 2 3 4 5 6 7 8 9 10
+    for(int p = beginPage; p <= endPage; p++) {
+      if(p == page) {
+        builder.append("<div><a class=\"current-page\" href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "&" + params + "\">" + p + "</a></div>");
+      } else {
+        builder.append("<div><a href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "&" + params + "\">" + p + "</a></div>");
+      }
+    }
+    
+    // >
+    if(endPage == totalPage) {
+      builder.append("<div class=\"dont-click\">&gt;</div>");
+    } else {
+      builder.append("<div><a href=\"" + requestURI + "?page=" + (endPage + 1) + "&sort=" + sort + "&display=" + display + "&" + params + "\">&gt;</a></div>");
+    }
+    
+    return builder.toString();
+    
+  }
   
   public String getAsyncPaging() {
    
@@ -59,66 +121,6 @@ public class MyPageUtils {
       builder.append("<a>&gt;</a>");
     } else {   
       builder.append("<a href=\"javascript:fnPaging(" + (endPage + 1) + ")\">&gt;</a>");
-    }
-    
-    return builder.toString();
-    
-  }
-                                                                       // params 는 column=xx&query=yy 뜻함
-  public String getPaging(String requestURI, String sort, int display, String params) {
-  
-    StringBuilder builder = new StringBuilder();
-    
-    // <
-    if(beginPage == 1) {
-      builder.append("<div class=\"dont-click\">&lt;</div>");
-    } else {
-      builder.append("<div><a href=\"" + requestURI + "?page=" + (beginPage - 1) + "&sort=" + sort + "&display=" + display + "&" + params + "\">&lt;</a></div>");
-    }
-    
-    // 1 2 3 4 5 6 7 8 9 10
-    for(int p = beginPage; p <= endPage; p++) {
-      if(p == page) {
-        builder.append("<div><a class=\"current-page\" href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "&" + params +"\">" + p + "</a></div>");
-      } else {
-        builder.append("<div><a href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "&" + params + "\">" + p + "</a></div>");
-      }
-    }
-    
-    // >
-    if(endPage == totalPage) {
-      builder.append("<div class=\"dont-click\">&gt;</div>");
-    } else {
-      builder.append("<div><a href=\"" + requestURI + "?page=" + (endPage + 1) + "&sort=" + sort + "&display=" + display + "&" + params + "\">&gt;</a></div>");
-    }
-    
-    return builder.toString();
-  }
-  public String getPaging(String requestURI, String sort, int display) {
-    
-    StringBuilder builder = new StringBuilder();
-    
-    // <
-    if(beginPage == 1) {
-      builder.append("<div class=\"dont-click\">&lt;</div>");
-    } else {
-      builder.append("<div><a href=\"" + requestURI + "?page=" + (beginPage - 1) + "&sort=" + sort + "&display=" + display + "\">&lt;</a></div>");
-    }
-    
-    // 1 2 3 4 5 6 7 8 9 10
-    for(int p = beginPage; p <= endPage; p++) {
-      if(p == page) {
-        builder.append("<div><a class=\"current-page\" href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "\">" + p + "</a></div>");
-      } else {
-        builder.append("<div><a href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "\">" + p + "</a></div>");
-      }
-    }
-    
-    // >
-    if(endPage == totalPage) {
-      builder.append("<div class=\"dont-click\">&gt;</div>");
-    } else {
-      builder.append("<div><a href=\"" + requestURI + "?page=" + (endPage + 1) + "&sort=" + sort + "&display=" + display + "\">&gt;</a></div>");
     }
     
     return builder.toString();

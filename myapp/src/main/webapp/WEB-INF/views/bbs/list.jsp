@@ -8,7 +8,7 @@
 <jsp:include page="../layout/header.jsp"/>
 
 <style>
-  .blind{
+  .blind {
     display: none;
   }
 </style>
@@ -48,11 +48,11 @@
           <td>${bbs.user.email}</td>
           <td>
             <c:forEach begin="1" end="${bbs.depth}" step="1">&nbsp;&nbsp;</c:forEach>
-            <c:if test="${bbs.depth != 0}">[[Re]]</c:if>
-            ${bbs.contents}       
+            <c:if test="${bbs.depth != 0}"><i class="fa-solid fa-share"></i></c:if>
+            ${bbs.contents}
             <c:if test="${bbs.user.userNo != sessionScope.user.userNo}">
               <button type="button" class="btn-reply">답글</button>
-            </c:if>           
+            </c:if>
             <c:if test="${bbs.user.userNo == sessionScope.user.userNo}">
               <button type="button" class="btn-remove">삭제</button>
               <input type="hidden" value="${bbs.bbsNo}">
@@ -97,34 +97,34 @@
 <script>
 
   const fnBtnRemove = () => {
-	  $('.btn-remove').on('click', (evt) => {
-		  if(confirm('게시글을 삭제할까요?')) {
-			  location.href = '${contextPath}/bbs/removeBbs.do?bbsNo=' + $(evt.target).next().val();
-		  }
-	  })
+    $('.btn-remove').on('click', (evt) => {
+      if(confirm('게시글을 삭제할까요?')) {
+        location.href = '${contextPath}/bbs/removeBbs.do?bbsNo=' + $(evt.target).next().val();
+      }
+    })
   }
 
   const fnCheckSignin = () => {
-	  if('${sessionScope.user}' === '') {
-		  if(confirm('Sign In 이 필요한 기능입니다. Sign In 할까요?')) {
-			  location.href = '${contextPath}/user/signin.page';
-		  }
-	  }
-  }  
+    if('${sessionScope.user}' === '') {
+      if(confirm('Sign In 이 필요한 기능입니다. Sign In 할까요?')) {
+        location.href = '${contextPath}/user/signin.page';
+      }
+    }
+  }
 
   const fnBtnReply = () => {
-	  $('.btn-reply').on('click', (evt) => {
-		  // Sign In 체크
-		  fnCheckSignin();
-		  // 답글 작성 화면 조작하기
-		  let write = $(evt.target).closest('.bbs').next();
-		  if(write.hasClass('blind')) {
-			  $('.write').addClass('blind'); // 모든 답글 작성 화면 닫은 뒤
-			  write.removeClass('blind');    // 클릭한 답글 작성 화면만 열기
-		  } else {
-			  write.addClass('blind');       // 답글 작성 화면이 열려있었다면 닫겠다.
-		  }
-	  })
+    $('.btn-reply').on('click', (evt) => {
+      // Sign In 체크
+      fnCheckSignin();
+      // 답글 작성 화면 조작하기
+      let write = $(evt.target).closest('.bbs').next();
+      if(write.hasClass('blind')) {
+        $('.write').addClass('blind');  // 모든 답글 작성 화면 닫은 뒤
+        write.removeClass('blind');     // 클릭한 답글 작성 화면만 열기
+      } else {
+        write.addClass('blind');        // 답글 작성 화면이 열려있었다면 닫겠다.
+      }
+    })
   }
 
   const fnInsertBbsCount = () => {
@@ -148,7 +148,7 @@
       }
     }
   }
-  
+
   fnBtnRemove();
   $('.contents').on('click', fnCheckSignin);
   fnBtnReply();

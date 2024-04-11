@@ -123,7 +123,6 @@ public class BlogServiceImpl implements BlogService {
     return blogMapper.updateHit(blogNo);
   }
   
-
   @Override
   public BlogDto getBlogByNo(int blogNo) {
     return blogMapper.getBlogByNo(blogNo);
@@ -136,7 +135,7 @@ public class BlogServiceImpl implements BlogService {
     String contents = MySecurityUtils.getPreventXss(request.getParameter("contents"));
     int blogNo = Integer.parseInt(request.getParameter("blogNo"));
     int userNo = Integer.parseInt(request.getParameter("userNo"));
- 
+    
     // UserDto 객체 생성
     UserDto user = new UserDto();
     user.setUserNo(userNo);
@@ -150,21 +149,17 @@ public class BlogServiceImpl implements BlogService {
     
     // DB 에 저장 & 결과 반환
     return blogMapper.insertComment(comment);
-  }
-  
-  @Override
-  public int removeComment(int commentNo) {
-    return blogMapper.removeComment(commentNo);
+    
   }
   
   @Override
   public Map<String, Object> getCommentList(HttpServletRequest request) {
-
+    
     // 요청 파라미터
     int blogNo = Integer.parseInt(request.getParameter("blogNo"));
     int page = Integer.parseInt(request.getParameter("page"));
     
-    // 전체 댓글 수
+    // 전체 댓글 개수
     int total = blogMapper.getCommentCount(blogNo);
     
     // 한 페이지에 표시할 댓글 개수
@@ -178,7 +173,7 @@ public class BlogServiceImpl implements BlogService {
                                    , "begin", myPageUtils.getBegin()
                                    , "end", myPageUtils.getEnd());
     
-    // 결과  (목록, 페이징) 반환
+    // 결과 (목록, 페이징) 반환
     return Map.of("commentList", blogMapper.getCommentList(map)
                 , "paging", myPageUtils.getAsyncPaging());
     
@@ -203,26 +198,11 @@ public class BlogServiceImpl implements BlogService {
                           .groupNo(groupNo)
                           .blogNo(blogNo)
                           .user(user)
-                       .build();
-    
+                        .build();
     
     // DB 에 저장하고 결과 반환
     return blogMapper.insertReply(reply);
     
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 }
